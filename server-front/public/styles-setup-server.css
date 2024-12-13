@@ -1,0 +1,207 @@
+/* Ensure the body and html take the full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Wrapper to hold all content and push the footer */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto; /* Handle overflow on small screens */
+}
+
+/* Table style */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-sizing: border-box;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+/* Table header style */
+table th {
+    background-color: black;
+    color: rgb(158, 151, 151);  /* Color for header text */
+}
+
+/* Table data cell style */
+table td {
+    background-color: black;  /* Black background for data cells */
+    color: rgb(2, 2, 2);  /* White text for data cells */
+    font-size: 14px; /* Smaller font size for better readability */
+}
+
+/* Output container for terminal-like output */
+.output-container {
+    width: 100%;
+    height: 65vh;
+    border: 1px solid #292929; /* Subtle border */
+    border-radius: 6px;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: 'Source Code Pro', monospace; /* Modern monospace font */
+    white-space: pre-wrap;
+    text-align: left;
+    background-color: black;
+    color: rgb(192, 199, 192);
+    line-height: 1.5; /* Better readability */
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Adjust the initial project list to fit in one line */
+.output-container table {
+    width: auto;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.output-container td {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.output-container th {
+    font-size: 14px;
+}
+
+/* Button container for system enable/disable buttons */
+.button-container {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+}
+
+.button-container button {
+    padding: 10px 20px;
+    background-color: #495057;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-container button:hover {
+    background-color: #6c757d;
+}
+
+/* Checkbox style */
+label {
+    margin-top: 10px;
+    display: inline-block;
+}
+
+/* Progress modal styling */
+#progress-modal-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+#progress-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1000;
+    width: 300px;
+    text-align: center;
+}
+
+#progress-bar {
+    width: 0;
+    height: 20px;
+    background-color: #4caf50;
+    border-radius: 10px;
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    font-size: 14px;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-container button {
+        width: 100%; /* Make buttons take full width */
+        margin-bottom: 10px;
+    }
+
+    table th, table td {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    footer {
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    #progress-modal {
+        width: 250px; /* Reduce modal width on smaller screens */
+    }
+
+    .main-content {
+        padding: 15px; /* Reduced padding for smaller screens */
+    }
+}
+
+/* Ensure the buttons and table elements are centered and look good on smaller devices */
+@media (max-width: 480px) {
+    .button-container button {
+        font-size: 14px; /* Slightly smaller text for buttons */
+    }
+
+    .main-content {
+        padding: 10px;
+    }
+
+    table th, table td {
+        font-size: 12px;
+    }
+}

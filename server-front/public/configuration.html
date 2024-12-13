@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Configuration</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Ensure the body and html take the full height */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Wrapper to hold all content and push the footer */
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        /* Main content container */
+        .config-container {
+            flex: 1; /* Ensures this fills the remaining space */
+            padding: 20px;
+        }
+
+        /* Footer styles */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f4f4f4;
+            font-size: 14px;
+        }
+    </style>
+    <script src="./js/config.js"></script>
+    <script src="./js/axios.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="config-container">
+            <!-- Migrate Database Section -->
+            <section>
+                <h2>Migrate Database</h2>
+                <div id="migrate-project-container" class="project-list"></div>
+                <button id="migrate-submit" class="submit-button">Submit</button>
+            </section>
+
+            <!-- Fix Permissions Section -->
+            <section>
+                <h2>Fix Permissions</h2>
+                <div id="fix-permissions-container" class="project-list"></div>
+                <button id="fix-submit" class="submit-button">Submit</button>
+            </section>
+
+            <!-- Clear Cache Section -->
+            <section>
+                <h2>Clear Cache</h2>
+                <div id="clearcache-project-container" class="project-list"></div>
+                <button id="clearcache-submit" class="submit-button">Submit</button>
+            </section>
+
+            <!-- Fix Symlinks Section -->
+            <section>
+                <h2>Fix Symlinks</h2>
+                <div id="symlinks-project-container" class="project-list"></div>
+                <button id="symlinks-submit" class="submit-button">Submit</button>
+            </section>
+        </div>
+
+        <!-- Footer Section
+        <footer>
+
+            <p>
+                Copyright © 2024 ZEOUR LTD. All rights reserved.<br>
+                APP Version: 23.1.11.13 | 6.6.6.5 SA | 2024
+            </p>
+            <p>Contact us:
+                <a href="https://www.zeour.co.uk/" target="_blank">www.zeour.co.uk</a> |
+                <a href="mailto:info@zeour.co.uk">support@zeour.co.uk</a>
+            </p>
+
+        </footer> -->
+    </div>
+
+    <div id="progress-modal-backdrop"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;">
+    </div>
+    <div id="progress-modal"
+        style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffffff; padding: 20px; border-radius: 10px; z-index: 1000; width: 300px; text-align: center;">
+        <div class="progress-bar">
+            <div id="progress-bar" class="progress-bar-fill"></div>
+        </div>
+        <p>Processing, please wait...</p>
+    </div>
+
+    <script src="./js/configuration.js"></script>
+    <script src="./js/progress_bar.js"></script>
+</body>
+</html>

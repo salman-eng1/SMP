@@ -1,0 +1,155 @@
+/* Custom Styling for Dashboard */
+
+body {
+    background-color: white;
+}
+
+.dashboard-container {
+    min-height: 100vh;
+}
+
+.sidebar {
+    background-color: #343a40;
+    color: white;
+    height: 100vh;
+}
+
+.sidebar h2 {
+    color: #ffffff;
+}
+
+.nav-link {
+    color: #adb5bd !important;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.nav-link:hover {
+    color: #ffffff !important;
+    background-color: #495057;
+}
+
+.main-content {
+    background-color: #ffffff;
+}
+
+.content-section {
+    display: block;
+    margin-bottom: 30px;
+}
+
+/* Progress Modal */
+#progress-modal {
+    width: 300px;
+    text-align: center;
+}
+
+.progress-bar {
+    height: 10px;
+    background-color: #ccc;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background-color: #495057;
+}
+
+/* Button Container */
+.button-container button {
+    margin-right: 10px;
+}
+
+/* Flexbox container for the cards */
+#monitoring-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+#monitoring-section .card {
+    width: 250px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+#monitoring-section .card:hover {
+    transform: scale(1.05);
+}
+
+#monitoring-section .card .card-img-top {
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+#monitoring-section .card-body {
+    background-color: #495057;
+    color: white;
+    text-align: center;
+}
+
+/* Additional Custom Styles for Content Section */
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.output-container {
+    width: 100%;
+    height: 65vh;
+    border: 1px solid #292929; /* Subtle border */
+    border-radius: 6px;
+    overflow-y: auto;
+    padding: 25px;
+    box-sizing: border-box;
+    font-family: 'Source Code Pro', monospace; /* Modern monospace font */
+    white-space: pre-wrap;
+    text-align: left;
+    background-color: black;
+    color: rgb(192, 199, 192);    line-height: 1.5; /* Better readability */
+}
+
+
+
+
+/* Match button color with sidebar links */
+#troubleshooting-section .btn-primary, 
+#troubleshooting-section .btn-info {
+    background-color: #495057; /* Match the sidebar link color */
+    border-color: #495057;
+    color: #deeaf7; /* Dark text for better contrast */
+}
+
+/* On hover, use the same hover color as sidebar links */
+#troubleshooting-section .btn-primary:hover,
+#troubleshooting-section .btn-info:hover {
+    background-color: #495057; /* Darker shade on hover */
+    border-color: #495057;
+    color: #deeaf7; /* Ensure text is white on hover */
+}
+
+
+
+footer a {
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+footer a:hover {
+    color: #f8f9fa;
+}
+
+footer img {
+    max-width: 150px; /* Adjust logo size */
+}
+
+

@@ -1,0 +1,438 @@
+/* Reset basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Dashboard container */
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap; /* Responsive layout */
+}
+
+/* Sidebar styling */
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    padding: 20px;
+    color: #ecf0f1;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin-bottom: 15px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #ecf0f1;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #34495e;
+}
+
+/* Main content styling */
+.main-content {
+    flex: 1;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+}
+
+/* General heading */
+h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+/* Button container styling */
+.button-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.button-container button {
+    background-color: #495057;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    /* transition: background-color 0.3s; */
+}
+
+.button-container button:hover {
+    background-color: #495057;
+}
+
+/* Progress bar containers */
+#troubleshooting-progress-bar-container,
+#setup-server-progress-bar-container {
+    margin: 15px 0;
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#progress-bar {
+    width: 0%;
+    height: 20px;
+    background-color: #343a40;
+    border-radius: 10px;
+    transition: width 0.4s ease;
+}
+
+/* Output container */
+.output-container {
+    width: 100%;
+    height: 55vh;
+    background-color: #101010; /* Modern dark terminal */
+    border: 1px solid #292929; /* Subtle border */
+    border-radius: 6px;
+    overflow-y: auto;
+    padding: 25px;
+    box-sizing: border-box;
+    font-family: 'Source Code Pro', monospace; /* Modern monospace font */
+    white-space: pre-wrap;
+    text-align: left;
+    color: #007fe6; /* Neon green text */
+    line-height: 1.5; /* Better readability */
+}
+
+/* Setup new server section */
+#setup-new-server-section {
+    padding: 20px;
+    background-color: #f4f6f9;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Project buttons */
+#project-buttons button {
+    width: 100%; /* Full-width button */
+    padding: 15px; /* Added padding */
+    font-size: 18px;
+    background-color: #495057;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    /* transition: background-color 0.3s; */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px; /* Fixed height */
+}
+
+#project-buttons button:hover {
+    background-color: #495057;
+}
+
+#project-buttons button:focus {
+    outline: none;
+}
+
+#project-buttons button:active {
+    background-color: #495057; /* Darker shade */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .main-content {
+        margin: 0;
+    }
+}
+
+/* Form styling */
+#network-config-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Add space between input fields */
+}
+
+/* Input field styling */
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+.input-group input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Button container styling */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.button-container button {
+    background-color: #495057;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    /* transition: background-color 0.3s; */
+}
+
+.button-container button:hover {
+    background-color: #495057;
+}
+
+.button-container button:active {
+    background-color: #495057; /* Darker shade for active button */
+}
+
+/* Modal styling */
+#progress-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+#progress-modal .modal-content {
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Backdrop for modal */
+#progress-modal-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Progress bar inside the modal */
+#progress-bar {
+    width: 0;
+    height: 20px;
+    background-color: #3498db;
+    border-radius: 5px;
+    transition: width 0.5s;
+}
+
+/* Migrate Database Section */
+section {
+    padding: 20px;
+    background-color: #f4f6f9;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: center; /* Center the text inside the section */
+}
+
+section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Project container */
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center; /* Center the checkbox and label */
+}
+
+/* Checkbox and label styling */
+.project-list input[type="checkbox"] {
+    transform: scale(1.5); /* Make checkbox bigger */
+    margin-right: 10px; /* Space between checkbox and label */
+}
+
+.project-list label {
+    font-size: 18px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+/* Submit button styling */
+.submit-button {
+    background-color: #495057;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.submit-button:hover {
+    background-color: #495057;
+}
+
+.submit-button:active {
+    background-color: #495057;
+}
+.config-container {
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+}
+/* Fix Symlinks Section (same as Migrate Database Section) */
+section {
+    padding: 20px;
+    background-color: #f4f6f9;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: center; /* Center the text inside the section */
+}
+
+section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Project container */
+.project-list {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center; /* Center the checkbox and label */
+    justify-content: center;
+}
+
+/* Checkbox and label styling */
+.project-list input[type="checkbox"] {
+    transform: scale(1.5); /* Make checkbox bigger */
+    margin-right: 10px; /* Space between checkbox and label */
+}
+
+.project-list label {
+    font-size: 18px;
+    color: #555;
+    display: flex;
+    align-items: center;
+}
+
+/* Submit button styling */
+.submit-button {
+    background-color: #495057;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.submit-button:hover {
+    background-color: #495057;
+}
+
+.submit-button:active {
+    background-color: #495057;
+}
+
+/* Monitoring card container */
+#monitoring-section div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Monitoring cards */
+#monitoring-section div > div {
+    width: 500;
+    height: 250px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#monitoring-section div > div:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Card labels */
+#monitoring-section div > div > div {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles1.css">
+
+    <!-- JavaScript files -->
+    <script src="./js/config.js"></script>
+    <script src="./js/axios.min.js"></script>
+    <script src="https://cdn.socket.io/4.5.1/socket.io.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container-fluid dashboard-container">
+        <div class="row">
+            <aside class="col-md-3 sidebar p-4">
+                <h2 class="text-center mb-4">ZEOUR LTD</h2>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" id="troubleshooting-link">Troubleshooting</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" id="setup-network-interface-link">Setup Network Interface</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" id="monitoring-link">Monitoring</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" id="logout-link">Logout</a>
+                    </li>
+                </ul>
+            </aside>
+
+            <main class="col-md-9 main-content p-4">
+                <!-- Troubleshooting Section -->
+                <div id="troubleshooting-section" class="content-section">
+                    <h1>Service Control Portal</h1>
+                    <div class="button-container mb-4">
+                        <button class="btn btn-primary" id="check-services">Check Services</button>
+                        <button class="btn btn-info" id="show-running-ports">Show Running Ports</button>
+                    </div>
+
+                    <!-- Output messages -->
+                    <div class="output-container" id="messages"></div>
+                </div>
+
+                <!-- Progress Modal -->
+                <div id="progress-modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
+                <div id="progress-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffffff; padding: 20px; border-radius: 10px; z-index: 1000; width: 300px; text-align: center;">
+                    <div class="progress-bar">
+                        <div id="progress-bar" class="progress-bar-fill"></div>
+                    </div>
+                    <p>Processing, please wait...</p>
+                </div>
+
+                <!-- Setup Network Interface Section -->
+                <div id="setup-network-interface-section" class="content-section" style="display: none;">
+                    <h1>Network Interface Setup</h1>
+                </div>
+
+                <!-- Monitoring Section -->
+                <div id="monitoring-section" class="content-section" style="display: none;">
+                    <h1>Monitoring</h1>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Footer -->
+    <footer class="footer bg-dark text-light p-4 mt-5">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-4 mb-3 mb-md-0">
+                    <img src="./images/background11.png" alt="ZEOUR Logo" class="img-fluid" style="max-width: 150px;">
+                </div>
+                <div class="col-12 col-md-4 mb-3 mb-md-0">
+                    <h5 class="text-uppercase">Contact Us</h5>
+                    <p><a href="mailto:support@zeour.co.uk" class="text-light">support@zeour.co.uk</a></p>
+                    <p><a href="https://www.zeour.co.uk/" target="_blank" class="text-light">www.zeour.co.uk</a></p>
+                </div>
+                <div class="col-12 col-md-4">
+                    <p class="text-center text-md-right">&copy; 2024 ZEOUR Solutions. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Custom JavaScript Files -->
+    <script src="./js/websocket-client.js"></script>
+    <script src="./js/service-control.js"></script>
+    <script src="./js/partner.js"></script>
+</body>
+</html>
