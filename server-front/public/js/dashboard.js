@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('sssssss'+window.token)
+
     if (localStorage.getItem('authToken') !== window.token) {
         // If no token, redirect to login page
         window.top.location.assign('index.html'); // Redirect the entire parent page
