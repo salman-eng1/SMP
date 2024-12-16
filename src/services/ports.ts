@@ -18,12 +18,9 @@ export const getPorts = async (systemName: string): Promise<string[]> => {
         `grep -E '^APP_URL=' ${envFile} | awk -F '=' '{print $2}' | sed -n 's/.*:\\([0-9]\\+\\).*/\\1/p'`, 
         ''
       );
-      console.log("hi from"+ port.trim())
       return port.trim();
     })
   );
-  console.log("ssssssssssssssssssss"+ports)
-
   return ports as string[];
 }
 
@@ -45,7 +42,7 @@ export const getPorts = async (systemName: string): Promise<string[]> => {
       await execute(deleteCommand, '');
     })
 
-
+console.log(ports)
 return 'ports deleted successfully';
 }
   export const addPorts = async (systemName: string): Promise<string[]> => {
