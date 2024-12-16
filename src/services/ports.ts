@@ -66,17 +66,17 @@ export const getPorts = async (systemName: string): Promise<string[]> => {
     return 'ports deleted successfully';
   }
 
-  export const deleteProjectPorts = async (systemName:string): Promise<string> => {
+  export const deleteProjectPorts = async (systemName: string): Promise<string> => {
     const ports: string[] = await getPorts(systemName);
-
-    ports.map(async (port) => {
+  
+    for (const port of ports) {
       const deleteCommand = `sudo sed -i '/^Listen ${port}/d' /etc/apache2/ports.conf`;
       await execute(deleteCommand, '');
-    })
-
-console.log(ports)
-return 'ports deleted successfully';
-}
+    }
+  
+    return 'ports deleted successfully';
+  };
+  
   export const addPorts = async (systemName: string): Promise<string[]> => {
     const ports: string[] = await getPorts(systemName);
     const addedPorts: string[] = await Promise.all(
