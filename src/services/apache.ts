@@ -12,7 +12,7 @@ export const disableSystem = async (systemName: string,deleteAll:boolean): Promi
       projects.map(async (project) => {
         if(deleteAll){
          const  disableCommand = `cd /etc/apache2/sites-enabled && rm *.conf`;
-         const  enableServerPortal = `cd /etc/apache2/sites-available && a2ensite server-portal.conf`;
+         const  enableServerPortal = `cd /etc/apache2/sites-available && a2ensite phpmyadmin.conf server-portal.conf`;
 
          await execute(disableCommand, 'terminal');
          await execute(enableServerPortal, 'terminal');
