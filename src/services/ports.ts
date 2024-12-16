@@ -50,14 +50,19 @@ export const getPorts = async (systemName: string): Promise<string[]> => {
 
 
 
-  export const addPorts = async (systemName: string): Promise<string[]> => {
-    const ports: string[] = await getPorts(systemName);
-    const addedPorts: string[] = await Promise.all(
-      ports.map(async (port) => {
-        const addCommand = `echo 'Listen ${port}' >> /etc/apache2/ports.conf && sed -i '/^Listen[^0-9]*$/d' /etc/apache2/ports.conf        `;
-        await execute(addCommand, '');
-          return port;
-      })
-    );
-    return addedPorts;
-  }
+export const addPorts = async (systemName: string): Promise<string[]> => {
+  const ports: string[] = await getPorts(systemName);
+
+  const filteredPorts = ports.filter(port => port !== "80" && port !== "443");
+
+  const addedPorts: string[] = await Promise.all(
+    filteredPorts.map(async (port) => {
+      const addCommand = `echo 'Listen ${port}' >> /etc/apache2/ports.conf && sed -i '/^Listen[^0-9]*$/d' /etc/apache2/ports.conf`;
+      await execute(addCommand, '');
+      return port;
+    })
+  );
+
+  // Return the list of added ports
+  return addedPorts;
+};
