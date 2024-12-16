@@ -35,17 +35,21 @@ export const getPorts = async (systemName: string): Promise<string[]> => {
     return 'ports deleted successfully';
   }
 
-  export const deleteProjectPorts = async (systemName:string): Promise<string> => {
+  export const deleteProjectPorts = async (systemName: string): Promise<string> => {
     const ports: string[] = await getPorts(systemName);
-
-    ports.map(async (port) => {
-      const deleteCommand = `sudo sed -i '/^Listen ${port}/d' /etc/apache2/ports.conf`;
-      await execute(deleteCommand, '');
-    })
-
-
-return 'ports deleted successfully';
+    await Promise.all(
+        ports.map(async (port) => {
+            if (port === '80' || port === '443') return; // Skip critical ports
+            const deleteCommand = `sudo sed -i '/^Listen ${port}/d' /etc/apache2/ports.conf`;
+            await execute(deleteCommand, '');
+        })
+    );
+    return 'Project-specific ports deleted successfully.';
 }
+
+
+
+
   export const addPorts = async (systemName: string): Promise<string[]> => {
     const ports: string[] = await getPorts(systemName);
     const addedPorts: string[] = await Promise.all(
