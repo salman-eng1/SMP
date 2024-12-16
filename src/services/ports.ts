@@ -68,10 +68,12 @@ export const getPorts = async (systemName: string): Promise<string[]> => {
 
   export const deleteProjectPorts = async (systemName: string): Promise<string> => {
     const ports: string[] = await getPorts(systemName);
-  
+  console.log('before'+ports)
     for (const port of ports) {
       const deleteCommand = `sudo sed -i '/^Listen ${port}/d' /etc/apache2/ports.conf`;
       await execute(deleteCommand, '');
+      console.log('before'+port)
+
     }
   
     return 'ports deleted successfully';
