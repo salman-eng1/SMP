@@ -35,7 +35,7 @@ export const getPorts = async (systemName: string): Promise<string[]> => {
   const ports: string[] = await Promise.all(
     envFiles.map(async (envFile) => {
       if (envFile === '/var/www/QMS/ems/.env') {
-        return '80'; // Hardcoded for QMS/ems
+console.log('80')
       }
 
       const port: string = await execute(
