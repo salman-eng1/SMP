@@ -74,7 +74,26 @@ input[type="checkbox"] {
     margin-right: 10px;
 }
 
-/* Progress Modal */
+#progress-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+#progress-modal .modal-content {
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Backdrop for modal */
 #progress-modal-backdrop {
     display: none;
     position: fixed;
@@ -86,33 +105,13 @@ input[type="checkbox"] {
     z-index: 999;
 }
 
-#progress-modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    z-index: 1000;
-    width: 300px;
-    text-align: center;
-    color: #333;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.progress-bar {
-    width: 100%;
-    background-color: #e0e0e0;
-    height: 10px;
-    margin-bottom: 15px;
-}
-
-.progress-bar-fill {
+/* Progress bar inside the modal */
+#progress-bar {
     width: 0;
-    height: 100%;
-    background-color: #434a52;
+    height: 20px;
+    background-color: #44515a;
+    border-radius: 5px;
+    transition: width 0.5s;
 }
 
 /* Table for enabled projects */
