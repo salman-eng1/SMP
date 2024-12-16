@@ -1,13 +1,13 @@
-// window.APP_URL = 'http://192.168.1.27:5000';
-// window.Terminal_URL = 'http://192.168.1.27:4200';
-// window.phpmyadmin = 'http://192.168.1.27/phpmyadmin';
-// window.prometheus = 'http://192.168.1.27:4000';
+window.APP_URL = 'http://192.168.1.27:5000';
+window.Terminal_URL = 'http://192.168.1.27:4200';
+window.phpmyadmin = 'http://192.168.1.27/phpmyadmin';
+window.prometheus = 'http://192.168.1.27:4000';
 
 
-window.APP_URL = 'http://127.0.0.1:5000';
-window.Terminal_URL = 'http://127.0.0.1:4200';
-window.phpmyadmin = 'http://127.0.0.1/phpmyadmin';
-window.prometheus = 'http://127.0.0.1:4000';
+// window.APP_URL = 'http://127.0.0.1:5000';
+// window.Terminal_URL = 'http://127.0.0.1:4200';
+// window.phpmyadmin = 'http://127.0.0.1/phpmyadmin';
+// window.prometheus = 'http://127.0.0.1:4000';
 window.token='k5s1c7v58g1f6j2m7t9b3q5'
 window.partner_token='g5h2j8n8e9w3s54af17t5hf1c7'
 
