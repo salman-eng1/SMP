@@ -40,6 +40,9 @@ export const disableSystem = async (systemName: string,deleteAll:boolean): Promi
 
     }else{
       await deleteProjectPorts(systemName)
+      await execute('echo Listen 8099 >> /etc/apache2/ports.conf', 'terminal');
+      await execute('echo Listen 80 >> /etc/apache2/ports.conf', 'terminal');
+
     }
     await execute(`sudo sed -i '/${systemName}/d' /etc/crontab`, '');
 
