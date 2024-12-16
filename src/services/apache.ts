@@ -35,7 +35,7 @@ export const disableSystem = async (systemName: string,deleteAll:boolean): Promi
      
       await execute('echo Listen 5500 >> /etc/apache2/ports.conf', 'terminal');
       await execute('echo Listen 8099 >> /etc/apache2/ports.conf', 'terminal');
-      // await execute('echo Listen 80 >> /etc/apache2/ports.conf', 'terminal');
+      await execute('echo Listen 80 >> /etc/apache2/ports.conf', 'terminal');
 
 
     }else{
