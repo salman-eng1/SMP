@@ -10,10 +10,10 @@ export const getPorts = async (systemName: string): Promise<string[]> => {
 
   const ports: string[] = await Promise.all(
     envFiles.map(async (envFile) => {
-      // Check if the envFile path matches the specific condition
-      if (envFile === '/var/www/QMS/ems/.env') {
-        return '80';
-      }
+      // // Check if the envFile path matches the specific condition
+      // if (envFile === '/var/www/QMS/ems/.env') {
+      //   return '80';
+      // }
       const port: string = await execute(
         `grep -E '^APP_URL=' ${envFile} | awk -F '=' '{print $2}' | sed -n 's/.*:\\([0-9]\\+\\).*/\\1/p'`, 
         ''
