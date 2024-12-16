@@ -16,7 +16,6 @@ export const disableSystem = async (systemName: string,deleteAll:boolean): Promi
 
          await execute(disableCommand, 'terminal');
          await execute(enableServerPortal, 'terminal');
-         await execute(`echo 'Listen 8099' >> /etc/apache2/ports.conf`, 'terminal');
 
 
         }else{
@@ -35,6 +34,7 @@ export const disableSystem = async (systemName: string,deleteAll:boolean): Promi
       await fs.writeFile('/etc/crontab', cronCreateData, 'utf-8'); // Ensure this completes before appending
      
       await execute('echo Listen 5500 >> /etc/apache2/ports.conf', 'terminal');
+      await execute('echo Listen 8099 >> /etc/apache2/ports.conf', 'terminal');
 
 
     }else{
