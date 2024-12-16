@@ -28,7 +28,8 @@ function loadConfigurationProjects() {
                     radioMigrate.name = 'migrate-project'; // Same name to group radio buttons
                     radioMigrate.value = project;
                     radioMigrate.id = `migrate-${project}`;
-    
+                    radioMigrate.style.accentColor = '#495057'; // Inline style for the radio button
+
                     const labelMigrate = document.createElement('label');
                     labelMigrate.htmlFor = `migrate-${project}`;
                     labelMigrate.textContent = project;
@@ -44,7 +45,8 @@ function loadConfigurationProjects() {
                     radioPermissions.name = 'fix-permissions'; // Same name to group radio buttons
                     radioPermissions.value = project;
                     radioPermissions.id = `permissions-${project}`;
-    
+                    radioPermissions.style.accentColor = '#495057'; // Inline style for the radio button
+
                     const labelPermissions = document.createElement('label');
                     labelPermissions.htmlFor = `permissions-${project}`;
                     labelPermissions.textContent = project;
@@ -60,7 +62,8 @@ function loadConfigurationProjects() {
                     radioClearCache.name = 'clearcache-project'; // Same name to group radio buttons
                     radioClearCache.value = project;
                     radioClearCache.id = `clearcache-${project}`;
-    
+                    radioClearCache.style.accentColor = '#495057'; // Inline style for the radio button
+
                     const labelClearCache = document.createElement('label');
                     labelClearCache.htmlFor = `clearcache-${project}`;
                     labelClearCache.textContent = project;
