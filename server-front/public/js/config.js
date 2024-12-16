@@ -1,6 +1,6 @@
 window.APP_URL = 'http://192.168.1.66:5000';
 window.Terminal_URL = 'http://192.168.1.66:4200';
-window.phpmyadmin = 'http://192.168.1.66/phpmyadmin';
+window.phpmyadmin = 'http://192.168.1.66:8099/phpmyadmin';
 window.prometheus = 'http://192.168.1.66:4000';
 
 
