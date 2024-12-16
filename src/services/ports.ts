@@ -72,7 +72,7 @@ export const getPorts = async (systemName: string): Promise<string[]> => {
     for (const port of ports) {
       const deleteCommand = `sudo sed -i '/^Listen ${port}/d' /etc/apache2/ports.conf`;
       await execute(deleteCommand, '');
-      console.log('before'+port)
+      console.log('after'+port)
 
     }
   
