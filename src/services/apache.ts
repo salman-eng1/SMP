@@ -2,7 +2,7 @@ import { subSystemProjects } from "@portal/services/sharedHelper";
 import { execute } from "@portal/services/non-streamed-command";
 import { deletePorts,addPorts, deleteProjectPorts } from "@portal/services/ports";
 import { promises as fs } from 'fs';
-import {  crontabCreate } from "@portal/utils/env-files/crontab";
+import {  crontab,crontabCreate } from "@portal/utils/env-files/crontab";
 // import { appendToFile } from "@portal/services/create-file";
 
 export const disableSystem = async (systemName: string,deleteAll:boolean): Promise<string[]> => {
@@ -62,7 +62,7 @@ export const disableSystem = async (systemName: string,deleteAll:boolean): Promi
     );
     await addPorts(systemName)
  // Create the crontab file with the necessary content
-//  const crondata: string = await crontab(systemName) as string;
+ const crondata = await crontab(systemName);
 //  const cronCreateData = await crontabCreate();
 
 
@@ -71,7 +71,7 @@ export const disableSystem = async (systemName: string,deleteAll:boolean): Promi
 // }
 let content= "";
 content = await fs.readFile("/etc/crontab", "utf-8");
-content += "\n" + "test";
+content += "\n" + crondata;
 await fs.writeFile('/etc/crontab', content, 'utf-8'); // Ensure this completes before appending
 
  // Append additional crontab data
