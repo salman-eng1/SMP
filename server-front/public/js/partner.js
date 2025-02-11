@@ -92,6 +92,18 @@ logoutLink.addEventListener('click', () => {
         prometheusLabel.textContent = 'Prometheus';
         prometheusCard.appendChild(prometheusLabel);
     
+
+                //create elasticsearch card
+                const elasticsearchCard = document.createElement('div');
+                Object.assign(elasticsearchCard.style, cardStyle);
+                elasticsearchCard.style.backgroundImage = 'url("./images/elasticsearch.png")';
+            
+                const elasticsearchLabel = document.createElement('div');
+                Object.assign(elasticsearchLabel.style, labelStyle);
+                elasticsearchLabel.textContent = 'Elasticsearch';
+                elasticsearchCard.appendChild(elasticsearchLabel);
+
+
         // Create PhpMyAdmin card
         const phpmyadminCard = document.createElement('div');
         Object.assign(phpmyadminCard.style, cardStyle);
@@ -106,7 +118,9 @@ logoutLink.addEventListener('click', () => {
         prometheusCard.addEventListener('click', () => {
             window.open(window.prometheus, '_blank');
         });
-    
+            elasticsearchCard.addEventListener('click', () => {
+            window.open(window.elasticsearch, '_blank');
+        });
         phpmyadminCard.addEventListener('click', () => {
             window.open(window.phpmyadmin, '_blank');
         });
@@ -114,7 +128,8 @@ logoutLink.addEventListener('click', () => {
         // Append cards to the container
         cardContainer.appendChild(prometheusCard);
         cardContainer.appendChild(phpmyadminCard);
-    
+        cardContainer.appendChild(elasticsearchCard);
+
         // Append the container to the monitoring section
         monitoringSection.appendChild(cardContainer);
     });

@@ -2,6 +2,7 @@ window.APP_URL = 'http://192.168.1.66:5000';
 window.Terminal_URL = 'http://192.168.1.66:4200';
 window.phpmyadmin = 'http://192.168.1.66:8099/phpmyadmin';
 window.prometheus = 'http://192.168.1.66:4000';
+window.elasticsearch = 'http://192.168.1.66:5601';
 
 
 // window.APP_URL = 'http://127.0.0.1:5000';
