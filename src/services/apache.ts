@@ -27,7 +27,6 @@ export const disableSystem = async (systemName: string,deleteAll:boolean): Promi
           return project;
       })
     );
-    console.log("deleteAll value:", deleteAll, typeof deleteAll);
 
     if (deleteAll === true){
       await deletePorts()
@@ -66,15 +65,16 @@ export const disableSystem = async (systemName: string,deleteAll:boolean): Promi
  const crondata: string = await crontab(systemName) as string;
 //  const cronCreateData = await crontabCreate();
 
- console.log("deleteAll value:", deleteAll, typeof deleteAll);
 
 // if (deleteAll === true){
 //   await fs.writeFile('/etc/crontab', cronCreateData, 'utf-8'); // Ensure this completes before appending
 // }
 
  // Append additional crontab data
- await appendToFile('/etc/crontab', crondata); // Await to ensure it completes properly
-
+const ifExisted= await fs.access('/etc/crontab'); // Check if file exists
+ const appended=await appendToFile('/etc/crontab', crondata); // Await to ensure it completes properly
+console.log('haha' + ifExisted)
+console.log('tata' + appended)
     await execute('systemctl restart apache2','')
 
     return enabledProjects;
