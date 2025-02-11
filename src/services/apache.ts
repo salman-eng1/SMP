@@ -71,10 +71,9 @@ if (deleteAll === true){
 }
 
  // Append additional crontab data
-const ifExisted= await fs.access('/etc/crontab'); // Check if file exists
- const appended=await appendToFile('/etc/crontab', crondata); // Await to ensure it completes properly
-console.log('haha' + ifExisted)
-console.log('tata' + appended)
+await fs.access('/etc/crontab'); // Check if file exists
+await appendToFile('/etc/crontab', crondata); // Await to ensure it completes properly
+
     await execute('systemctl restart apache2','')
 
     return enabledProjects;
