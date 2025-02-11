@@ -27,8 +27,9 @@ export const disableSystem = async (systemName: string,deleteAll:boolean): Promi
           return project;
       })
     );
+    console.log("deleteAll value:", deleteAll, typeof deleteAll);
 
-    if (deleteAll){
+    if (deleteAll === true){
       await deletePorts()
       const cronCreateData = await crontabCreate();
       await fs.writeFile('/etc/crontab', cronCreateData, 'utf-8'); // Ensure this completes before appending
@@ -64,8 +65,10 @@ export const disableSystem = async (systemName: string,deleteAll:boolean): Promi
  // Create the crontab file with the necessary content
  const crondata: string = await crontab(systemName) as string;
  const cronCreateData = await crontabCreate();
- 
-if (deleteAll){
+
+ console.log("deleteAll value:", deleteAll, typeof deleteAll);
+
+if (deleteAll === true){
   await fs.writeFile('/etc/crontab', cronCreateData, 'utf-8'); // Ensure this completes before appending
 }
 
