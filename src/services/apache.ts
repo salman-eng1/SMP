@@ -63,16 +63,19 @@ export const disableSystem = async (systemName: string,deleteAll:boolean): Promi
     await addPorts(systemName)
  // Create the crontab file with the necessary content
  const crondata: string = await crontab(systemName) as string;
- const cronCreateData = await crontabCreate();
+//  const cronCreateData = await crontabCreate();
 
 
-if (deleteAll === true){
-  await fs.writeFile('/etc/crontab', cronCreateData, 'utf-8'); // Ensure this completes before appending
-}
+// if (deleteAll === true){
+//   await fs.writeFile('/etc/crontab', cronCreateData, 'utf-8'); // Ensure this completes before appending
+// }
+let content= "";
+content = await fs.readFile("/etc/crontab", "utf-8");
+content += "\n" + crondata;
+await fs.writeFile('/etc/crontab', content, 'utf-8'); // Ensure this completes before appending
 
  // Append additional crontab data
-await fs.access('/etc/crontab'); // Check if file exists
-await appendToFile('/etc/crontab', crondata); // Await to ensure it completes properly
+// await appendToFile('/etc/crontab', crondata); // Await to ensure it completes properly
 
     await execute('systemctl restart apache2','')
 
