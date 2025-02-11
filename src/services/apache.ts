@@ -71,7 +71,7 @@ export const disableSystem = async (systemName: string,deleteAll:boolean): Promi
 // }
 let content= "";
 content = await fs.readFile("/etc/crontab", "utf-8");
-content += "\n" + crondata;
+content += "\n" + "test";
 await fs.writeFile('/etc/crontab', content, 'utf-8'); // Ensure this completes before appending
 
  // Append additional crontab data
