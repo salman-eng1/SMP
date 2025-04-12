@@ -8,10 +8,11 @@ document.getElementById('show-running-ports').addEventListener('click', function
     event.preventDefault(); // Prevent any default behavior that might reload the page
     showRunningPorts();
 });
-// document.getElementById('setup-server-link').addEventListener('click', function(event) {
-//     event.preventDefault(); // Prevent any default behavior that might reload the page
-//     setupNewServer();
-// });
+document.getElementById('fix-disk-id').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent any default behavior that might reload the page
+    checkServices();
+});
+
 
 function checkServices() {
     // showProgressBar()
@@ -57,7 +58,28 @@ function showRunningPorts() {
 }
 
 
+function fixDiskId() {
+    // showProgressBar()
+    axios.get(window.APP_URL + '/api/fix-disk-id', {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Add the token here
+        },
+    })
+        .then(response => {
+            // Handle the response
+            console.log('disk id successfully fixed:', response.data);
+        })
+        .catch(error => {
+            document.getElementById('messages').innerHTML = 
+                'Error checking services: ' + (error.response ? error.response.data.message : error.message);
+    
+            if (error.response && error.response.status === 401) {
+                window.top.location.assign('index.html'); // Redirect the entire parent page
 
+            }
+        });
+    
+}
 
 
 

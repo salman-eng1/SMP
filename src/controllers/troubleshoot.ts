@@ -16,3 +16,8 @@ export const checkPorts=async (_req: Request,res: Response): Promise<void> =>{
     execute('netstat -lptun', 'terminal');
     res.status(StatusCodes.OK).json({ message: 'Check Ports Done Successfully' });
 }
+
+export const diskID=async (_req: Request,res: Response): Promise<void> =>{
+    execute('bash /home/zeuor/changeDiskID.sh', 'terminal');
+    res.status(StatusCodes.OK).json({ message: 'DISK ID changed Successfully' });
+}
