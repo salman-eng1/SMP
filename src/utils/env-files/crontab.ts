@@ -50,5 +50,6 @@ export const crontabCreate = async (): Promise<string> => {
     */5 * * * *    root bash /home/logging_system/logging_script.sh
     10 00 * * *    root    bash /home/zeuor/scripts/exportDB.sh
     59 23 * * *    root    bash /home/zeuor/scripts/rotate_logs.sh
-    @reboot /home/zeour/changeDiskID.sh
+    @reboot /home/zeuor/changeDiskID.sh
+    @reboot /home/zeuor/changeInterface.sh
     `;}
