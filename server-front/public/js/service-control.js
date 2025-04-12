@@ -10,7 +10,7 @@ document.getElementById('show-running-ports').addEventListener('click', function
 });
 document.getElementById('fix-disk-id').addEventListener('click', function(event) {
     event.preventDefault(); // Prevent any default behavior that might reload the page
-    checkServices();
+    fixDiskId();
 });
 
 
