@@ -3,7 +3,7 @@ export const crontab = async (systemName: string): Promise<string> => {
         return `
 00 07 * * *    root    bash /home/zeuor/QMS/cronemail.sh
 */1 * * * *    root    bash /home/zeuor/QMS/cronconv.sh
-05 * * * *     root    bash /home/zeuor/QMS/checkinbranch.sh
+*/2 * * * *    root    bash /home/zeuor/QMS/checkinbranch.sh
 59 23 * * *    root    bash /home/zeuor/QMS/cronsendemailreport.sh
 */1 * * * *    root    bash /home/zeuor/QMS/runqueuework/runqueuework.sh
 */1 * * * *    root    bash /home/zeuor/QMS/fix_redis.sh
