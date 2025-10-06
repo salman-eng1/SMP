@@ -135,6 +135,11 @@ export const setupProject = async (req: Request, res: Response): Promise<void> =
       }
     }
 
+    // Ensure essential ports are always present
+    await execute(`grep -q '^Listen 5500$' /etc/apache2/ports.conf || echo 'Listen 5500' >> /etc/apache2/ports.conf`, 'terminal');
+    await execute(`grep -q '^Listen 80$' /etc/apache2/ports.conf || echo 'Listen 80' >> /etc/apache2/ports.conf`, 'terminal');
+    await execute(`grep -q '^Listen 8099$' /etc/apache2/ports.conf || echo 'Listen 8099' >> /etc/apache2/ports.conf`, 'terminal');
+
     if (unavailableProjects.length === 0) {
       await execute(`cd /etc/apache2/sites-available && a2ensite *`, 'terminal');
       await execute(`systemctl reload apache2`, 'terminal');
