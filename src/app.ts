@@ -1,5 +1,5 @@
 import express, { Express } from "express"
-import { PortalServer } from "@portal/server";
+import { PortalServer } from "../server";
 
 class Application{
 public initialize(): void{
