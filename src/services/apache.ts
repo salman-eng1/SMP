@@ -34,9 +34,9 @@ export const disableSystem = async (systemName: string, deleteAll: boolean): Pro
         const cronCreateData = await crontabCreate();
         await fs.writeFile('/etc/crontab', cronCreateData, 'utf-8');
 
-        await execute('echo Listen 5500 >> /etc/apache2/ports.conf', 'terminal');
-        await execute('echo Listen 8099 >> /etc/apache2/ports.conf', 'terminal');
-        await execute('echo Listen 80 >> /etc/apache2/ports.conf', 'terminal');
+        await execute('sudo sh -c "echo Listen 5500 >> /etc/apache2/ports.conf"', 'terminal');
+        await execute('sudo sh -c "echo Listen 8099 >> /etc/apache2/ports.conf"', 'terminal');
+        await execute('sudo sh -c "echo Listen 80 >> /etc/apache2/ports.conf"', 'terminal');
     }
 
     await execute(`sudo sed -i '/${systemName}/d' /etc/crontab`, '');
