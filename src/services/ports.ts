@@ -26,44 +26,33 @@ export const getPorts = async (systemName: string): Promise<string[]> => {
 }
 
 
-  const alwaysPresentPorts = ['80', '5500', '8099'];
-
-  export const resetPortsToAlwaysPresent = async (): Promise<void> => {
-    const deleteCommand = `sudo sed -i '/^Listen/d' /etc/apache2/ports.conf`;
-    await execute(deleteCommand, '');
-    for (const port of alwaysPresentPorts) {
-      await execute(`echo "Listen ${port}" >> /etc/apache2/ports.conf`, '');
-    }
-  };
-
   export const deletePorts = async (): Promise<string> => {
-    await resetPortsToAlwaysPresent();
-    return 'ports reset to always-present successfully';
+
+
+        const deleteCommand = `sudo sed -i '/^Listen/d' /etc/apache2/ports.conf`;
+          await execute(deleteCommand, '');
+
+    return 'ports deleted successfully';
   }
 
   export const deleteProjectPorts = async (systemName: string): Promise<string> => {
     const ports: string[] = await getPorts(systemName);
-    const fs = require('fs').promises;
-    let content = await fs.readFile('/etc/apache2/ports.conf', 'utf-8');
-    const lines = content.split('\n');
-    const filteredLines = lines.filter(line => {
-      const trimmed = line.trim();
-      if (!trimmed.startsWith('Listen ')) return true;
-      const port = trimmed.substring(7).trim();
-      return alwaysPresentPorts.includes(port) || !ports.includes(port);
-    });
-    const newContent = filteredLines.join('\n');
-    await fs.writeFile('/etc/apache2/ports.conf', newContent, 'utf-8');
+    await Promise.all(
+        ports.map(async (port) => {
+            if (port === '80' || port === '443') return; // Skip critical ports
+            const deleteCommand = `sudo sed -i '/^Listen ${port}/d' /etc/apache2/ports.conf`;
+            await execute(deleteCommand, '');
+        })
+    );
     return 'Project-specific ports deleted successfully.';
 }
-
 
 
 
 export const addPorts = async (systemName: string): Promise<string[]> => {
   const ports: string[] = await getPorts(systemName);
 
-  const filteredPorts = ports.filter(port => !alwaysPresentPorts.includes(port));
+  const filteredPorts = ports.filter(port => port !== "80" && port !== "443");
 
   const addedPorts: string[] = await Promise.all(
     filteredPorts.map(async (port) => {
