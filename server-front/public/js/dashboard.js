@@ -49,14 +49,11 @@ setupNetworkInterfaceLink.addEventListener('click', () => {
     loadNetworkingPage(); // Load networking.html
 });
 
-// Show setup new server section and load projects
+// Show setup new server section and load setup server page
 setupServerLink.addEventListener('click', () => {
     hideAllSections();
     setupNewServerSection.style.display = 'block';
-    // Clear any existing iframes
-    const iframes = setupNewServerSection.querySelectorAll('iframe');
-    iframes.forEach(iframe => iframe.remove());
-    loadProjects(); // Load projects for the setup new server section
+    loadSetupServerPage(); // Load setup-server.html in iframe
 });
 
 // Show configuration section
@@ -87,7 +84,7 @@ window.addEventListener('message', (event) => {
     if (event.data.action === 'back-to-projects') {
         hideAllSections();
         setupNewServerSection.style.display = 'block';
-        loadProjects();
+        loadSetupServerPage();
     }
 });
 
@@ -295,6 +292,27 @@ window.addEventListener('message', (event) => {
         } else {
             console.log(`Iframe already exists for networking page`);
         }
+    }
+
+    // Function to load the setup-server.html page into an iframe
+    function loadSetupServerPage() {
+        // Clear existing content
+        setupNewServerSection.innerHTML = '';
+
+        // Create an iframe element
+        const iframe = document.createElement('iframe');
+        iframe.src = `setup-server.html`; // Path to your setup server page
+
+        // Dynamically adjust iframe height based on .main-content height
+        const mainContentHeight = document.querySelector('.main-content').offsetHeight;
+        iframe.style.width = '100%';
+        iframe.style.height = `${mainContentHeight}px`; // Match the height of .main-content
+        iframe.style.border = 'none';
+
+        // Append the iframe to the section
+        setupNewServerSection.appendChild(iframe);
+
+        console.log(`Iframe created for setup server page`); // Debug log to confirm iframe creation
     }
     // Function to load the configuration.html page into an iframe
     function loadConfigurationPage() {
