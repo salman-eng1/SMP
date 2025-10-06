@@ -9,8 +9,7 @@ export const enableSys = async (req: Request, res: Response): Promise<void> => {
       console.log(req.body)
 
       const systemName = req.body.systemName
-      const deleteAll:boolean=req.body.deleteAll
-      const enabledSystem: string[] = await enableSystem(systemName,deleteAll)
+      const enabledSystem: string[] = await enableSystem(systemName)
       res.status(StatusCodes.OK).json({ message: enabledSystem });
       
     } catch (err) {

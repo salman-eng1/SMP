@@ -46,7 +46,7 @@ export const disableSystem = async (systemName: string, deleteAll: boolean): Pro
 }
 
 
-export const enableSystem = async (systemName: string, deleteAll: boolean): Promise<string[]> => {
+export const enableSystem = async (systemName: string): Promise<string[]> => {
     const projects: string[] = await subSystemProjects(systemName);
 
     await addPorts(systemName);
