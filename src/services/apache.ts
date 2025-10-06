@@ -19,11 +19,10 @@ export const disableSystem = async (systemName: string, deleteAll: boolean): Pro
       const cronCreateData = await crontabCreate();
       await fs.writeFile('/etc/crontab', cronCreateData, 'utf-8');
     } else {
-      const disabledProjects: string[] = await Promise.all(
+      await Promise.all(
         projects.map(async (project) => {
           const disableCommand = `cd /etc/apache2/sites-enabled && unlink ${project}.conf`;
           await execute(disableCommand, 'terminal');
-          return project;
         })
       );
 
