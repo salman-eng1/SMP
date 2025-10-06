@@ -52,6 +52,8 @@ setupNetworkInterfaceLink.addEventListener('click', () => {
 // Show setup new server section and load projects
 setupServerLink.addEventListener('click', () => {
     hideAllSections();
+    setupNewServerSection.innerHTML = '<h1>Available Projects</h1><div class="button-container" id="project-buttons"></div><div id="project-page-container"></div>';
+    projectButtonsContainer = document.getElementById('project-buttons');
     setupNewServerSection.style.display = 'block';
     loadProjects(); // Load projects for the setup new server section
 });
@@ -84,8 +86,6 @@ window.addEventListener('message', (event) => {
     if (event.data.action === 'back-to-projects') {
         hideAllSections();
         setupNewServerSection.style.display = 'block';
-        setupNewServerSection.innerHTML = '<h1>Available Projects</h1><div class="button-container" id="project-buttons"></div><div id="project-page-container"></div>';
-        projectButtonsContainer = document.getElementById('project-buttons');
         loadProjects();
     }
 });
