@@ -137,6 +137,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Back button event listener
+    document.getElementById('back-button').addEventListener('click', () => {
+        window.parent.postMessage({action: 'back-to-projects'}, '*');
+    });
+
     // Initial fetch of enabled projects on page load
     refreshEnabledProjects();
 });

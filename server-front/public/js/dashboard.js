@@ -79,6 +79,15 @@ logoutLink.addEventListener('click', () => {
     window.top.location.assign('index.html');
 });
 
+// Message listener for iframe communication
+window.addEventListener('message', (event) => {
+    if (event.data.action === 'back-to-projects') {
+        hideAllSections();
+        setupNewServerSection.style.display = 'block';
+        loadProjects();
+    }
+});
+
     monitoringLink.addEventListener('click', () => {
         hideAllSections();
         monitoringSection.style.display = 'block';
@@ -227,23 +236,34 @@ logoutLink.addEventListener('click', () => {
     }
     
     function loadProjectPage(project) {
-        // Clear existing content
-        setupNewServerSection.innerHTML = '';
-    
-        // Create an iframe element
-        const iframe = document.createElement('iframe');
-        iframe.src = `project.html?projectName=${encodeURIComponent(project)}`; // Pass the project name as a query parameter
-    
-        // Dynamically adjust iframe height based on .main-content height
-        const mainContentHeight = document.querySelector('.main-content').offsetHeight;
-        iframe.style.width = '100%';
-        iframe.style.height = `${mainContentHeight}px`; // Match the height of .main-content
-        iframe.style.border = 'none';
-    
-        // Append the iframe to the section
-        setupNewServerSection.appendChild(iframe);
-    
-        console.log(`Iframe created for project: ${project}`); // Debug log to confirm iframe creation
+        const iframe = setupNewServerSection.querySelector('iframe');
+        const newSrc = `project.html?projectName=${encodeURIComponent(project)}`;
+        if (iframe) {
+            if (iframe.src !== window.location.origin + '/' + newSrc) {
+                iframe.src = newSrc;
+                console.log(`Iframe src updated for project: ${project}`);
+            } else {
+                console.log(`Iframe already loaded for project: ${project}`);
+            }
+        } else {
+            // Clear existing content
+            setupNewServerSection.innerHTML = '';
+
+            // Create an iframe element
+            const newIframe = document.createElement('iframe');
+            newIframe.src = newSrc; // Pass the project name as a query parameter
+
+            // Dynamically adjust iframe height based on .main-content height
+            const mainContentHeight = document.querySelector('.main-content').offsetHeight;
+            newIframe.style.width = '100%';
+            newIframe.style.height = `${mainContentHeight}px`; // Match the height of .main-content
+            newIframe.style.border = 'none';
+
+            // Append the iframe to the section
+            setupNewServerSection.appendChild(newIframe);
+
+            console.log(`Iframe created for project: ${project}`); // Debug log to confirm iframe creation
+        }
     }
     
 
@@ -251,43 +271,51 @@ logoutLink.addEventListener('click', () => {
     
     // Function to load the networking.html page into an iframe
     function loadNetworkingPage() {
-        // Clear existing content
-        setupNetworkInterfaceSection.innerHTML = '';
+        if (!setupNetworkInterfaceSection.querySelector('iframe')) {
+            // Clear existing content
+            setupNetworkInterfaceSection.innerHTML = '';
 
-        // Create an iframe element
-        const iframe = document.createElement('iframe');
-        iframe.src = `networking.html`; // Path to your networking page
+            // Create an iframe element
+            const iframe = document.createElement('iframe');
+            iframe.src = `networking.html`; // Path to your networking page
 
-        // Dynamically adjust iframe height based on .main-content height
-        const mainContentHeight = document.querySelector('.main-content').offsetHeight;
-        iframe.style.width = '100%';
-        iframe.style.height = `${mainContentHeight}px`; // Match the height of .main-content
-        iframe.style.border = 'none';
+            // Dynamically adjust iframe height based on .main-content height
+            const mainContentHeight = document.querySelector('.main-content').offsetHeight;
+            iframe.style.width = '100%';
+            iframe.style.height = `${mainContentHeight}px`; // Match the height of .main-content
+            iframe.style.border = 'none';
 
-        // Append the iframe to the section
-        setupNetworkInterfaceSection.appendChild(iframe);
+            // Append the iframe to the section
+            setupNetworkInterfaceSection.appendChild(iframe);
 
-        console.log(`Iframe created for networking page`); // Debug log to confirm iframe creation
+            console.log(`Iframe created for networking page`); // Debug log to confirm iframe creation
+        } else {
+            console.log(`Iframe already exists for networking page`);
+        }
     }
-    // Function to load the networking.html page into an iframe
+    // Function to load the configuration.html page into an iframe
     function loadConfigurationPage() {
-        // Clear existing content
-        configurationSection.innerHTML = '';
+        if (!configurationSection.querySelector('iframe')) {
+            // Clear existing content
+            configurationSection.innerHTML = '';
 
-        // Create an iframe element
-        const iframe = document.createElement('iframe');
-        iframe.src = `configuration.html`; // Path to your networking page
+            // Create an iframe element
+            const iframe = document.createElement('iframe');
+            iframe.src = `configuration.html`; // Path to your configuration page
 
-        // Dynamically adjust iframe height based on .main-content height
-        const mainContentHeight = document.querySelector('.main-content').offsetHeight;
-        iframe.style.width = '100%';
-        iframe.style.height = `${mainContentHeight}px`; // Match the height of .main-content
-        iframe.style.border = 'none';
+            // Dynamically adjust iframe height based on .main-content height
+            const mainContentHeight = document.querySelector('.main-content').offsetHeight;
+            iframe.style.width = '100%';
+            iframe.style.height = `${mainContentHeight}px`; // Match the height of .main-content
+            iframe.style.border = 'none';
 
-        // Append the iframe to the section
-        configurationSection.appendChild(iframe);
+            // Append the iframe to the section
+            configurationSection.appendChild(iframe);
 
-        console.log(`Iframe created for configuration page`); // Debug log to confirm iframe creation
+            console.log(`Iframe created for configuration page`); // Debug log to confirm iframe creation
+        } else {
+            console.log(`Iframe already exists for configuration page`);
+        }
     }
 
 
