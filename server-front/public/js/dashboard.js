@@ -85,6 +85,10 @@ window.addEventListener('message', (event) => {
         hideAllSections();
         setupNewServerSection.style.display = 'block';
         loadSetupServerPage();
+    } else if (event.data.action === 'load-project') {
+        loadProjectPage(event.data.project);
+    } else if (event.data.action === 'unauthorized') {
+        window.top.location.assign('index.html');
     }
 });
 
