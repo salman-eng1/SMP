@@ -11,7 +11,7 @@
 //   });
    
 // }
-import { socketIO } from '@portal/server'; // Adjust the import path as needed
+import { socketIO } from '../server';
 const { exec } = require('child_process');
 
 export const execute = (command: string, socketChannel: string): Promise<string> => {
