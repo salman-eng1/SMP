@@ -52,10 +52,8 @@ setupNetworkInterfaceLink.addEventListener('click', () => {
 // Show setup new server section and load projects
 setupServerLink.addEventListener('click', () => {
     hideAllSections();
-    setupNewServerSection.innerHTML = '<h1>Available Projects</h1><div class="button-container" id="project-buttons"></div><div id="project-page-container"></div>';
-    projectButtonsContainer = document.getElementById('project-buttons');
     setupNewServerSection.style.display = 'block';
-    loadProjects(); // Load projects for the setup new server section
+    loadSetupServerPage();
 });
 
 // Show configuration section
@@ -83,12 +81,13 @@ logoutLink.addEventListener('click', () => {
 
 // Message listener for iframe communication
 window.addEventListener('message', (event) => {
-    if (event.data.action === 'back-to-projects') {
-        hideAllSections();
-        setupNewServerSection.innerHTML = '<h1>Available Projects</h1><div class="button-container" id="project-buttons"></div><div id="project-page-container"></div>';
-        projectButtonsContainer = document.getElementById('project-buttons');
-        setupNewServerSection.style.display = 'block';
-        loadProjects();
+    if (event.data.action === 'load-project') {
+        loadProjectPage(event.data.project);
+    } else if (event.data.action === 'back-to-projects') {
+        const iframe = setupNewServerSection.querySelector('iframe');
+        if (iframe) {
+            iframe.src = 'setup-server.html';
+        }
     }
 });
 
@@ -328,25 +327,49 @@ window.addEventListener('message', (event) => {
             console.error('Terminal URL is not defined.');
             return;
         }
-    
+
         // Clear existing content
         terminalSection.innerHTML = '';
-    
+
         // Create an iframe element
         const iframe = document.createElement('iframe');
         iframe.src = `${window.Terminal_URL}`; // Path to your networking page
-    
+
         // Dynamically adjust iframe height based on .main-content height
         const mainContentHeight = document.querySelector('.main-content').offsetHeight;
         iframe.style.width = '100%';
         iframe.style.height = `${mainContentHeight}px`; // Match the height of .main-content
         iframe.style.border = 'none';
-    
+
         // Append the iframe to the section
         terminalSection.appendChild(iframe);
-    
+
         console.log(`Loading terminal from: ${window.Terminal_URL}`);
         console.log('Iframe created successfully:', iframe);
+    }
+
+    function loadSetupServerPage() {
+        if (!setupNewServerSection.querySelector('iframe')) {
+            // Clear existing content
+            setupNewServerSection.innerHTML = '';
+
+            // Create an iframe element
+            const iframe = document.createElement('iframe');
+            iframe.src = `setup-server.html`; // Path to setup-server page
+
+            // Dynamically adjust iframe height based on .main-content height
+            const mainContentHeight = document.querySelector('.main-content').offsetHeight;
+            iframe.style.width = '100%';
+            iframe.style.height = `${mainContentHeight}px`; // Match the height of .main-content
+            iframe.style.border = 'none';
+
+            // Append the iframe to the section
+            setupNewServerSection.appendChild(iframe);
+
+            console.log(`Iframe created for setup-server page`);
+        } else {
+            console.log(`Iframe already exists for setup-server page`);
+        }
     }
     
     // Default section shown on page load
