@@ -85,6 +85,8 @@ logoutLink.addEventListener('click', () => {
 window.addEventListener('message', (event) => {
     if (event.data.action === 'back-to-projects') {
         hideAllSections();
+        setupNewServerSection.innerHTML = '<h1>Available Projects</h1><div class="button-container" id="project-buttons"></div><div id="project-page-container"></div>';
+        projectButtonsContainer = document.getElementById('project-buttons');
         setupNewServerSection.style.display = 'block';
         loadProjects();
     }
