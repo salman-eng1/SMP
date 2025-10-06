@@ -5,79 +5,68 @@ import { promises as fs } from 'fs';
 import {  crontab,crontabCreate } from "@portal/utils/env-files/crontab";
 // import { appendToFile } from "@portal/services/create-file";
 
-export const disableSystem = async (systemName: string,deleteAll:boolean): Promise<string[]> => {
+export const disableSystem = async (systemName: string, deleteAll: boolean): Promise<string[]> => {
     const projects: string[] = await subSystemProjects(systemName);
+
+    if (deleteAll === true) {
+        await deletePorts();
+    } else {
+        await deleteProjectPorts(systemName);
+    }
 
     const disabledProjects: string[] = await Promise.all(
-      projects.map(async (project) => {
-        if(deleteAll){
-         const  disableCommand = `cd /etc/apache2/sites-enabled && rm *.conf`;
-         const  enableServerPortal = `cd /etc/apache2/sites-available && a2ensite phpmyadmin.conf server-portal.conf`;
+        projects.map(async (project) => {
+            if (deleteAll) {
+                const disableCommand = `cd /etc/apache2/sites-enabled && rm *.conf`;
+                const enableServerPortal = `cd /etc/apache2/sites-available && a2ensite phpmyadmin.conf server-portal.conf`;
 
-         await execute(disableCommand, 'terminal');
-         await execute(enableServerPortal, 'terminal');
-
-
-        }else{
-         const  disableCommand = `cd /etc/apache2/sites-enabled && unlink ${project}.conf`;
-         await execute(disableCommand, 'terminal');
-
-
-        }
-          return project;
-      })
+                await execute(disableCommand, 'terminal');
+                await execute(enableServerPortal, 'terminal');
+            } else {
+                const disableCommand = `cd /etc/apache2/sites-enabled && unlink ${project}.conf`;
+                await execute(disableCommand, 'terminal');
+            }
+            return project;
+        })
     );
 
-    if (deleteAll === true){
-      await deletePorts()
-      const cronCreateData = await crontabCreate();
-      await fs.writeFile('/etc/crontab', cronCreateData, 'utf-8'); // Ensure this completes before appending
+    if (deleteAll === true) {
+        const cronCreateData = await crontabCreate();
+        await fs.writeFile('/etc/crontab', cronCreateData, 'utf-8');
 
-      await execute('echo Listen 5500 >> /etc/apache2/ports.conf', 'terminal');
-      await execute('echo Listen 8099 >> /etc/apache2/ports.conf', 'terminal');
-      await execute('echo Listen 80 >> /etc/apache2/ports.conf', 'terminal');
-
-    }else{
-      await deleteProjectPorts(systemName)
-
+        await execute('echo Listen 5500 >> /etc/apache2/ports.conf', 'terminal');
+        await execute('echo Listen 8099 >> /etc/apache2/ports.conf', 'terminal');
+        await execute('echo Listen 80 >> /etc/apache2/ports.conf', 'terminal');
     }
+
     await execute(`sudo sed -i '/${systemName}/d' /etc/crontab`, '');
 
-    await execute('systemctl restart apache2','')
+    await execute('systemctl restart apache2', '');
     return disabledProjects;
-  }
+}
 
 
-  export const enableSystem = async (systemName: string,deleteAll:boolean): Promise<string[]> => {
-
-    disableSystem(systemName,deleteAll)
+export const enableSystem = async (systemName: string, deleteAll: boolean): Promise<string[]> => {
     const projects: string[] = await subSystemProjects(systemName);
+
+    await addPorts(systemName);
+
     const enabledProjects: string[] = await Promise.all(
-      projects.map(async (project) => {
-        const enableCommand = `cd /etc/apache2/sites-available && a2ensite ${project}.conf`;
-          await execute(enableCommand, 'terminal');
+        projects.map(async (project) => {
+            const enableCommand = `cd /etc/apache2/sites-available && a2ensite ${project}.conf`;
+            await execute(enableCommand, 'terminal');
 
-          return project;
-      })
+            return project;
+        })
     );
-    await addPorts(systemName)
-  // Create the crontab file with the necessary content
- const crondata = await crontab(systemName);
-//  const cronCreateData = await crontabCreate();
 
+    const crondata = await crontab(systemName);
+    let content = "";
+    content = await fs.readFile("/etc/crontab", "utf-8");
+    content += "\n" + crondata;
+    await fs.writeFile('/etc/crontab', content, 'utf-8');
 
-// if (deleteAll === true){
-//   await fs.writeFile('/etc/crontab', cronCreateData, 'utf-8'); // Ensure this completes before appending
-// }
-let content= "";
-content = await fs.readFile("/etc/crontab", "utf-8");
-content += "\n" + crondata;
-await fs.writeFile('/etc/crontab', content, 'utf-8'); // Ensure this completes before appending
-
- // Append additional crontab data
-// await appendToFile('/etc/crontab', crondata); // Await to ensure it completes properly
-
-    await execute('systemctl restart apache2','')
+    await execute('systemctl restart apache2', '');
 
     return enabledProjects;
-  }
+}
