@@ -43,13 +43,17 @@ export const getPorts = async (systemName: string): Promise<string[]> => {
 
   export const deleteProjectPorts = async (systemName: string): Promise<string> => {
     const ports: string[] = await getPorts(systemName);
-    await Promise.all(
-        ports.map(async (port) => {
-            if (alwaysPresentPorts.includes(port)) return; // Skip always-present ports
-            const deleteCommand = `sudo sed -i '/^Listen ${port}/d' /etc/apache2/ports.conf`;
-            await execute(deleteCommand, '');
-        })
-    );
+    const fs = require('fs').promises;
+    let content = await fs.readFile('/etc/apache2/ports.conf', 'utf-8');
+    const lines = content.split('\n');
+    const filteredLines = lines.filter(line => {
+      const trimmed = line.trim();
+      if (!trimmed.startsWith('Listen ')) return true;
+      const port = trimmed.substring(7).trim();
+      return alwaysPresentPorts.includes(port) || !ports.includes(port);
+    });
+    const newContent = filteredLines.join('\n');
+    await fs.writeFile('/etc/apache2/ports.conf', newContent, 'utf-8');
     return 'Project-specific ports deleted successfully.';
 }
 
