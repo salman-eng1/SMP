@@ -1,6 +1,6 @@
 import { subSystemProjects } from "@portal/services/sharedHelper";
 import { execute } from "@portal/services/non-streamed-command";
-import { deletePorts,addPorts, deleteProjectPorts } from "@portal/services/ports";
+import { deletePorts, resetPortsToAlwaysPresent, addPorts, deleteProjectPorts } from "@portal/services/ports";
 import { promises as fs } from 'fs';
 import {  crontab,crontabCreate } from "@portal/utils/env-files/crontab";
 // import { appendToFile } from "@portal/services/create-file";
@@ -32,10 +32,6 @@ export const disableSystem = async (systemName: string,deleteAll:boolean): Promi
       await deletePorts()
       const cronCreateData = await crontabCreate();
       await fs.writeFile('/etc/crontab', cronCreateData, 'utf-8'); // Ensure this completes before appending
-     
-      await execute('echo Listen 5500 >> /etc/apache2/ports.conf', 'terminal');
-      await execute('echo Listen 8099 >> /etc/apache2/ports.conf', 'terminal');
-      await execute('echo Listen 80 >> /etc/apache2/ports.conf', 'terminal');
 
     }else{
       await deleteProjectPorts(systemName)
@@ -49,8 +45,9 @@ export const disableSystem = async (systemName: string,deleteAll:boolean): Promi
 
 
   export const enableSystem = async (systemName: string,deleteAll:boolean): Promise<string[]> => {
-
-    disableSystem(systemName,deleteAll)
+    if (deleteAll) {
+      await resetPortsToAlwaysPresent();
+    }
     const projects: string[] = await subSystemProjects(systemName);
     const enabledProjects: string[] = await Promise.all(
       projects.map(async (project) => {

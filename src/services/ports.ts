@@ -26,13 +26,19 @@ export const getPorts = async (systemName: string): Promise<string[]> => {
 }
 
 
+  const alwaysPresentPorts = ['80', '443', '5500', '8099'];
+
+  export const resetPortsToAlwaysPresent = async (): Promise<void> => {
+    const deleteCommand = `sudo sed -i '/^Listen/d' /etc/apache2/ports.conf`;
+    await execute(deleteCommand, '');
+    for (const port of alwaysPresentPorts) {
+      await execute(`echo "Listen ${port}" >> /etc/apache2/ports.conf`, '');
+    }
+  };
+
   export const deletePorts = async (): Promise<string> => {
-
-
-        const deleteCommand = `sudo sed -i '/^Listen/d' /etc/apache2/ports.conf`;
-          await execute(deleteCommand, '');
-
-    return 'ports deleted successfully';
+    await resetPortsToAlwaysPresent();
+    return 'ports reset to always-present successfully';
   }
 
   export const deleteProjectPorts = async (systemName: string): Promise<string> => {
