@@ -5,42 +5,35 @@ import { promises as fs } from 'fs';
 import {  crontab,crontabCreate } from "@portal/utils/env-files/crontab";
 // import { appendToFile } from "@portal/services/create-file";
 
-export const disableSystem = async (systemName: string,deleteAll:boolean): Promise<string[]> => {
+export const disableSystem = async (systemName: string, deleteAll: boolean): Promise<string[]> => {
     const projects: string[] = await subSystemProjects(systemName);
-  
-    const disabledProjects: string[] = await Promise.all(
-      projects.map(async (project) => {
-        if(deleteAll){
-         const  disableCommand = `cd /etc/apache2/sites-enabled && rm *.conf`;
-         const  enableServerPortal = `cd /etc/apache2/sites-available && a2ensite phpmyadmin.conf server-portal.conf`;
 
-         await execute(disableCommand, 'terminal');
-         await execute(enableServerPortal, 'terminal');
+    if (deleteAll) {
+      const disableCommand = `cd /etc/apache2/sites-enabled && rm *.conf`;
+      const enableServerPortal = `cd /etc/apache2/sites-available && a2ensite phpmyadmin.conf server-portal.conf`;
 
+      await execute(disableCommand, 'terminal');
+      await execute(enableServerPortal, 'terminal');
 
-        }else{
-         const  disableCommand = `cd /etc/apache2/sites-enabled && unlink ${project}.conf`;
-         await execute(disableCommand, 'terminal');
-
-
-        }
-          return project;
-      })
-    );
-
-    if (deleteAll === true){
-      await deletePorts()
+      await deletePorts();
       const cronCreateData = await crontabCreate();
-      await fs.writeFile('/etc/crontab', cronCreateData, 'utf-8'); // Ensure this completes before appending
+      await fs.writeFile('/etc/crontab', cronCreateData, 'utf-8');
+    } else {
+      const disabledProjects: string[] = await Promise.all(
+        projects.map(async (project) => {
+          const disableCommand = `cd /etc/apache2/sites-enabled && unlink ${project}.conf`;
+          await execute(disableCommand, 'terminal');
+          return project;
+        })
+      );
 
-    }else{
-      await deleteProjectPorts(systemName)
-
+      await deleteProjectPorts(systemName);
     }
+
     await execute(`sudo sed -i '/${systemName}/d' /etc/crontab`, '');
 
-    await execute('systemctl restart apache2','')
-    return disabledProjects;
+    await execute('systemctl restart apache2', '');
+    return projects;
   }
 
 
