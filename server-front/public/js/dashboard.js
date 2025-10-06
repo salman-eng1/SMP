@@ -53,7 +53,7 @@ setupNetworkInterfaceLink.addEventListener('click', () => {
 setupServerLink.addEventListener('click', () => {
     hideAllSections();
     setupNewServerSection.style.display = 'block';
-    loadSetupServerPage(); // Load setup-server.html in iframe
+    loadSetupServerPage(); // Load or update iframe to setup-server.html
 });
 
 // Show configuration section
@@ -296,23 +296,30 @@ window.addEventListener('message', (event) => {
 
     // Function to load the setup-server.html page into an iframe
     function loadSetupServerPage() {
-        // Clear existing content
-        setupNewServerSection.innerHTML = '';
+        const iframe = setupNewServerSection.querySelector('iframe');
+        if (iframe) {
+            // Update the src to load setup-server.html
+            iframe.src = `setup-server.html`;
+            console.log(`Iframe src updated to setup-server.html`);
+        } else {
+            // Clear existing content
+            setupNewServerSection.innerHTML = '';
 
-        // Create an iframe element
-        const iframe = document.createElement('iframe');
-        iframe.src = `setup-server.html`; // Path to your setup server page
+            // Create an iframe element
+            const newIframe = document.createElement('iframe');
+            newIframe.src = `setup-server.html`; // Path to your setup server page
 
-        // Dynamically adjust iframe height based on .main-content height
-        const mainContentHeight = document.querySelector('.main-content').offsetHeight;
-        iframe.style.width = '100%';
-        iframe.style.height = `${mainContentHeight}px`; // Match the height of .main-content
-        iframe.style.border = 'none';
+            // Dynamically adjust iframe height based on .main-content height
+            const mainContentHeight = document.querySelector('.main-content').offsetHeight;
+            newIframe.style.width = '100%';
+            newIframe.style.height = `${mainContentHeight}px`; // Match the height of .main-content
+            newIframe.style.border = 'none';
 
-        // Append the iframe to the section
-        setupNewServerSection.appendChild(iframe);
+            // Append the iframe to the section
+            setupNewServerSection.appendChild(newIframe);
 
-        console.log(`Iframe created for setup server page`); // Debug log to confirm iframe creation
+            console.log(`Iframe created for setup server page`); // Debug log to confirm iframe creation
+        }
     }
     // Function to load the configuration.html page into an iframe
     function loadConfigurationPage() {
