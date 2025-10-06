@@ -42,6 +42,8 @@ export const getPorts = async (systemName: string): Promise<string[]> => {
             if (port === '80' || port === '443') return; // Skip critical ports
             const deleteCommand = `sudo sed -i '/^Listen ${port}/d' /etc/apache2/ports.conf`;
             await execute(deleteCommand, '');
+                        await execute(deleteCommand, '');
+
         })
     );
     return 'Project-specific ports deleted successfully.';
