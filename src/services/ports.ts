@@ -26,7 +26,7 @@ export const getPorts = async (systemName: string): Promise<string[]> => {
 }
 
 
-  const alwaysPresentPorts = ['80', '443', '5500', '8099'];
+  const alwaysPresentPorts = ['80', '5500', '8099'];
 
   export const resetPortsToAlwaysPresent = async (): Promise<void> => {
     const deleteCommand = `sudo sed -i '/^Listen/d' /etc/apache2/ports.conf`;
